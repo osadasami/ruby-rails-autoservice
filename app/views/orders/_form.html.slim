@@ -1,0 +1,26 @@
+= form_with(model: @order) do |form|
+  - if @order.errors.any?
+    div style="color: red"
+      ul
+        - @order.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :customer_name, 'Имя покупателя', style: "display: block"
+    = form.text_field :customer_name
+
+  div
+    = form.label :worker_id, 'Исполнитель', style: "display: block"
+    = form.collection_select :worker_id, Worker.order(:name), :id, :name
+
+  h2 Услуги
+
+  ul
+    = form.collection_check_boxes :service_ids, Service.order(:name), :id, :name do |b|
+      li
+        = b.label
+          = b.check_box
+          = b.text
+
+  div
+    = form.submit 'Сохранить'

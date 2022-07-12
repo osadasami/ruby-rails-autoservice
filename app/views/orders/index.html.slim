@@ -1,0 +1,23 @@
+p style="color: green" = notice
+
+h1 Заказы
+
+= link_to "Добавить заказ", new_order_path
+
+table
+  thead
+    th Дата
+    th Заказчик
+    th Услуги
+    th Действие
+  tbody
+    - @orders.each do |order|
+      tr
+        td= link_to l(order.created_at), order
+        td= order.customer_name
+        td
+          ul
+            - order.services.each do |service|
+              li= link_to service.name, service
+        td= link_to 'Редактировать', edit_order_path(order)
+        td= button_to 'Удалить', order, method: :delete

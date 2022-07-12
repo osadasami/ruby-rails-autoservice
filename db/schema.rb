@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_12_110448) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_12_123910) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "customer_name"
+    t.integer "worker_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders_services", id: false, force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "service_id", null: false
+    t.index ["order_id", "service_id"], name: "index_orders_services_on_order_id_and_service_id"
+    t.index ["service_id", "order_id"], name: "index_orders_services_on_service_id_and_order_id"
   end
 
   create_table "services", force: :cascade do |t|

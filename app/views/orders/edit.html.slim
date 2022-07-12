@@ -1,0 +1,9 @@
+h1 Редактировать заказ
+
+== render "form", order: @order
+
+br
+
+ul
+  li= link_to "Показать заказ", @order
+  li= link_to "К списку заказов", orders_path
