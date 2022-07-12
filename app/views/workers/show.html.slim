@@ -1,0 +1,8 @@
+p style="color: green" = notice
+
+h1= @worker.name
+
+ul
+  li= link_to "Редактировать", edit_worker_path(@worker)
+  li= link_to "К списку рабочих", workers_path
+  = button_to "Удалить", @worker, method: :delete

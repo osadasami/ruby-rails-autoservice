@@ -1,0 +1,18 @@
+p style="color: green" = notice
+
+h1 Рабочие
+
+= link_to "Добавить рабочего", new_worker_path
+
+div
+  table
+    thead
+      th Имя
+      th Действие
+    tbody
+      - @workers.each do |worker|
+        tr
+          td= link_to worker.name, worker
+          td= link_to 'Редактировать', edit_worker_path(worker)
+          td= button_to 'Удалить', worker, method: :delete
+
