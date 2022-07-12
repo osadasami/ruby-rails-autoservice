@@ -1,0 +1,8 @@
+p style="color: green" = notice
+
+div
+  h1= @service.name
+  ul
+    li= link_to "Назад", services_path
+    li= link_to "Редактировать", edit_service_path(@service)
+    = button_to "Удалить", @service, method: :delete

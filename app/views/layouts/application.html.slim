@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title
+      | RubyRailsAutoservice
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    link(href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.5.5.min.css" rel="stylesheet")
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+  body
+    nav
+      ul
+        li= link_to 'Главная', root_path
+        li= link_to 'Услуги', services_path
+    = yield

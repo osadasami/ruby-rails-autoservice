@@ -1,0 +1,13 @@
+div
+  = form_with(model: @service, class: 'space-y-4') do |form|
+    - if @service.errors.any?
+      div style="color: red"
+        ul(class="list-disc")
+          - @service.errors.each do |error|
+            li = error.full_message
+    div(class="space-y-4")
+      = form.label :name, 'Название'
+      = form.text_field :name
+
+    div
+      = form.submit 'Создать'

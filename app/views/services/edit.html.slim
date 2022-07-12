@@ -1,0 +1,9 @@
+div
+
+  h1 Редактировать сервис
+
+  == render "form", service: @service
+
+  ul
+    li= link_to "Показать сервис", @service
+    li= link_to "К списку сервисов", services_path
