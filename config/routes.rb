@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  root 'services#index'
   resources :categories
   resources :workers
-  root 'pages#home'
   resources :services
 end
