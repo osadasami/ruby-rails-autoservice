@@ -3,6 +3,10 @@ p style="color: green" = notice
 h1= @category.name
 
 ul
+  - @category.services.each do |service|
+    li= link_to service.name, service
+
+ul
   li= link_to "Редактировать", edit_category_path(@category)
   li= link_to "К списку категорий", categories_path
   = button_to "Удалить", @category, method: :delete
