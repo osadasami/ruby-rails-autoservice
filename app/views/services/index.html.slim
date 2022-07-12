@@ -1,19 +1,18 @@
 p style="color: green" = notice
 
-div
+h1 Услуги
 
-  h1 Услуги
+div= link_to "Добавить услугу", new_service_path
 
-  div= link_to "Добавить услугу", new_service_path
-
-  div
-    table
-      thead
-        th Название
-        th Действие
-      tbody
-        - @services.each do |service|
-          tr
-            td= link_to service.name, service
-            td= link_to 'Редактировать', edit_service_path(service)
-            td= button_to 'Удалить', service, method: :delete
+table
+  thead
+    th Название
+    th Категория
+    th Действие
+  tbody
+    - @services.each do |service|
+      tr
+        td= link_to service.name, service
+        td= link_to service.category.name, category_path(service.category)
+        td= link_to 'Редактировать', edit_service_path(service)
+        td= button_to 'Удалить', service, method: :delete

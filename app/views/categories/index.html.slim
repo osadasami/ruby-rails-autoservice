@@ -1,0 +1,16 @@
+p style="color: green" = notice
+
+h1 Категории
+
+= link_to "Добавить категорию", new_category_path
+
+table
+  thead
+    th Название
+    th Действие
+  tbody
+    - @categories.each do |category|
+      tr
+        td= link_to category.name, category
+        td= link_to 'Редактировать', edit_category_path(category)
+        td= button_to 'Удалить', category, method: :delete

@@ -2,12 +2,15 @@ div
   = form_with(model: @service, class: 'space-y-4') do |form|
     - if @service.errors.any?
       div style="color: red"
-        ul(class="list-disc")
+        ul
           - @service.errors.each do |error|
             li = error.full_message
-    div(class="space-y-4")
+    div
       = form.label :name, 'Название'
       = form.text_field :name
+    div
+      = form.label :category_id, 'Категория'
+      = form.collection_select :category_id, Category.order(:name), :id, :name
 
     div
       = form.submit 'Сохранить'

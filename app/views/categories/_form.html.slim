@@ -1,0 +1,13 @@
+= form_with(model: @category) do |form|
+  - if @category.errors.any?
+    div style="color: red"
+      ul
+        - @category.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :name, style: "display: block"
+    = form.text_field :name
+
+  div
+    = form.submit 'Сохранить'
