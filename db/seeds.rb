@@ -47,7 +47,7 @@ customer_names = [
 workers = Worker.all
 services = Service.all.shuffle
 
-1.upto(100).each do |n|
+1.upto(20).each do |n|
   Order.create(
     created_at: Time.at(rand * Time.now.to_i),
     customer_name: customer_names.sample,
