@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.includes(order_items: [:worker, {service: :category}])
   end
 
   # GET /orders/1 or /orders/1.json
@@ -71,7 +71,7 @@ class OrdersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order.includes(order_items: [{service: :category}, :worker]).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
