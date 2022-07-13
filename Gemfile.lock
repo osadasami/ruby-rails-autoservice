@@ -121,7 +121,6 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
     minitest (5.16.2)
     msgpack (1.5.3)
     net-imap (0.2.3)
@@ -139,9 +138,6 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.7)
-      mini_portile2 (~> 2.8.0)
-      racc (~> 1.4)
     nokogiri (1.13.7-x86_64-darwin)
       racc (~> 1.4)
     pg (1.4.1)
@@ -218,8 +214,10 @@ GEM
     thor (1.2.1)
     tilt (2.0.10)
     timeout (0.3.0)
-    turbo-rails (7.1.1)
-      rails (>= 6.0.0)
+    turbo-rails (1.1.1)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     web-console (4.2.0)
@@ -240,7 +238,6 @@ GEM
     zeitwerk (2.6.0)
 
 PLATFORMS
-  ruby
   x86_64-darwin-19
 
 DEPENDENCIES
@@ -263,7 +260,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
-  turbo-rails
+  turbo-rails (~> 1.1.1)
   tzinfo-data
   web-console
   webdrivers
