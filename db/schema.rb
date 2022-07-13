@@ -28,15 +28,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_12_123910) do
   end
 
   create_table "orders_services", id: false, force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.integer "service_id", null: false
+    t.bigint "order_id", null: false
+    t.bigint "service_id", null: false
     t.index ["order_id", "service_id"], name: "index_orders_services_on_order_id_and_service_id"
     t.index ["service_id", "order_id"], name: "index_orders_services_on_service_id_and_order_id"
   end
 
   create_table "services", force: :cascade do |t|
     t.string "name"
-    t.integer "category_id", null: false
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_services_on_category_id"
