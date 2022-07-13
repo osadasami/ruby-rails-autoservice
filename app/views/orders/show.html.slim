@@ -4,9 +4,15 @@ h1 Заказ для #{@order.customer_name} от #{l @order.created_at}
 
 h2 Услуги
 
-ul
-  - @order.services.each do |service|
-    li= link_to service.name, service
+table
+  thead
+    th Услуга
+    th Исполнитель
+  tbody
+    - @order.order_items.each do |order_item|
+      tr
+      td= link_to order_item.service.name, order_item.service
+      td= link_to order_item.worker.name, order_item.worker
 
 ul
   li= link_to "Редактировать", edit_order_path(@order)

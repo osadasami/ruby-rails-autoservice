@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
-  has_many :orders_services
-  has_many :services, through: :orders_services
-  belongs_to :worker
+  has_many :order_items, dependent: :destroy
+
+  accepts_nested_attributes_for :order_items, allow_destroy: true
 
   validates :customer_name, presence: true
 end

@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.includes(:worker, services: :category)
+    @orders = Order.all
   end
 
   # GET /orders/1 or /orders/1.json
@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @order.order_items.build
   end
 
   # GET /orders/1/edit
@@ -75,6 +76,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:customer_name, :worker_id, service_ids: [])
+      params.require(:order).permit(:customer_name, order_items_attributes: [:id, :service_id, :worker_id, :_destroy])
     end
 end
