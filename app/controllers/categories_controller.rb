@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.kept
   end
 
   # GET /categories/1 or /categories/1.json
@@ -49,7 +49,7 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1 or /categories/1.json
   def destroy
-    @category.destroy
+    @category.discard
 
     respond_to do |format|
       format.html { redirect_to categories_url, notice: "Категория была успешно удалена." }
