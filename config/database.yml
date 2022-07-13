@@ -29,7 +29,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: govno
+  #username: ruby_rails_autoservice
 
   # The password associated with the postgres role (username).
   #password:
@@ -82,4 +82,5 @@ test:
 production:
   <<: *default
   database: ruby_rails_autoservice_production
-  password: <%= ENV["GOVNO_DATABASE_PASSWORD"] %>
+  username: ruby_rails_autoservice
+  password: <%= ENV["RUBY_RAILS_AUTOSERVICE_DATABASE_PASSWORD"] %>
