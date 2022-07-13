@@ -77,3 +77,5 @@ end
 gem "slim-rails", "~> 3.5"
 
 gem "russian", "~> 0.6.0"
+
+gem "ransack", "~> 3.2"

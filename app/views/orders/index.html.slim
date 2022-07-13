@@ -5,16 +5,46 @@ h1 Заказы
 = link_to "Добавить заказ", new_order_path
 
 table
-  thead
-    th Дата
-    th Заказчик
-    th Услуги
-    th Действие
+  = search_form_for @q do |f|
+    thead
+      th
+        = sort_link(@q, :created_at, "Дата")
+        div
+          = f.label :created_at_gteq, 'От'
+          = f.search_field :created_at_gteq, type: 'date', value: @q.created_at_gteq&.strftime('%Y-%m-%d')
+        div
+          = f.label :created_at_lteq, 'До'
+          = f.search_field :created_at_lteq, type: 'date', value: @q.created_at_lteq&.strftime('%Y-%m-%d')
+      th
+        = sort_link(@q, :customer_name, "Заказчик")
+        div
+          = f.search_field :customer_name_cont
+      th
+        = sort_link(@q, :worker_name, "Исполнитель")
+        div
+          = f.search_field :worker_name_cont
+      th
+        = sort_link(@q, :services_category_name, "Категория")
+        div
+          = f.search_field :services_category_name_cont
+      th
+        = sort_link(@q, :services_name, "Услуги")
+        div
+          = f.search_field :services_name_cont
+      th
+        div Действие
+        = link_to 'Сбросить', orders_path
+        = f.submit
   tbody
     - @orders.each do |order|
       tr
         td= link_to l(order.created_at), order
         td= order.customer_name
+        td= link_to order.worker.name, order.worker
+        td
+          ul
+            - order.services.map { |service| service.category }.uniq.each do |category|
+              li= link_to category.name, category
         td
           ul
             - order.services.each do |service|

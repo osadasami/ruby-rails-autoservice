@@ -16,7 +16,6 @@ data = {
   ],
 }
 
-
 ['Ширяев Вадим Даниилович', 'Виноградова Арина Германовна', 'Кондрашов Марк Семёнович'].each do |item|
   Worker.create(name: item)
 end
@@ -27,4 +26,25 @@ data.each do |category, services|
   services.each do |service|
     Service.create(name: service, category: new_category)
   end
+end
+
+customer_names = [
+  'Кузьмина Варвара Ивановна',
+  'Попова Ксения Денисовна',
+  'Егорова Вероника Демидовна',
+  'Агафонов Сергей Кириллович',
+  'Максимов Никита Андреевич',
+  'Волкова Кира Егоровна',
+]
+
+workers = Worker.all
+services = Service.all.shuffle
+
+1.upto(100).each do |n|
+  Order.create(
+    created_at: Time.at(rand * Time.now.to_i),
+    customer_name: customer_names.sample,
+    worker: workers.sample,
+    services: services.sample(rand(1..3))
+  )
 end

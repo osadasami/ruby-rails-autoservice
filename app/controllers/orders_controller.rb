@@ -3,7 +3,8 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.includes(:services)
+    @q = Order.ransack(params[:q])
+    @orders = @q.result.includes(:worker, services: :category)
   end
 
   # GET /orders/1 or /orders/1.json
