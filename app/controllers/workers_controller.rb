@@ -3,7 +3,7 @@ class WorkersController < ApplicationController
 
   # GET /workers or /workers.json
   def index
-    @workers = Worker.all
+    @workers = Worker.kept
   end
 
   # GET /workers/1 or /workers/1.json
@@ -49,7 +49,7 @@ class WorkersController < ApplicationController
 
   # DELETE /workers/1 or /workers/1.json
   def destroy
-    @worker.destroy
+    @worker.discard
 
     respond_to do |format|
       format.html { redirect_to workers_url, notice: "Рабочий был успешно удален." }
