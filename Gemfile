@@ -83,3 +83,5 @@ gem "ransack", "~> 3.2"
 gem "caxlsx", "~> 3.2"
 
 gem "caxlsx_rails", "~> 0.6.3"
+
+gem "pg", "~> 1.4"
