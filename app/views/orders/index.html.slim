@@ -7,36 +7,12 @@ h1 Заказы
 = button_to 'Экспортировать в Excel', export_orders_path, method: :get, params: params.permit!, form: {data: {turbo: false}}
 
 table
-  = search_form_for @q do |f|
-    thead
-      th
-        = sort_link(@q, :created_at, "Дата")
-        div
-          = f.label :created_at_gteq, 'От'
-          = f.search_field :created_at_gteq, type: 'date', value: @q.created_at_gteq&.strftime('%Y-%m-%d')
-        div
-          = f.label :created_at_lteq, 'До'
-          = f.search_field :created_at_lteq, type: 'date', value: @q.created_at_lteq&.strftime('%Y-%m-%d')
-      th
-        = sort_link(@q, :customer_name, "Заказчик")
-        div
-          = f.search_field :customer_name_cont
-      th
-        = sort_link(@q, :worker_name, "Исполнитель")
-        div
-          = f.search_field :worker_name_cont
-      th
-        = sort_link(@q, :services_category_name, "Категория")
-        div
-          = f.search_field :services_category_name_cont
-      th
-        = sort_link(@q, :services_name, "Услуги")
-        div
-          = f.search_field :services_name_cont
-      th
-        div Действие
-        = link_to 'Сбросить', orders_path
-        = f.submit
+  thead
+    th Дата
+    th Заказчик
+    th Исполнитель
+    th Категория
+    th Услуги
   tbody
     - @orders.each do |order|
       tr

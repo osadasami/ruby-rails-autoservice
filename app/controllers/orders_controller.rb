@@ -3,8 +3,7 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @q = Order.ransack(params[:q])
-    @orders = @q.result.includes(:worker, services: :category)
+    @orders = Order.includes(:worker, services: :category)
   end
 
   # GET /orders/1 or /orders/1.json
@@ -59,8 +58,7 @@ class OrdersController < ApplicationController
   end
 
   def export
-    q = Order.ransack(params[:q])
-    @orders = q.result.includes(:worker, services: :category)
+    @orders = Order.includes(:worker, services: :category)
 
     respond_to do |format|
       format.xlsx {
