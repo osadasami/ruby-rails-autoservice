@@ -5,7 +5,6 @@ class OrdersController < ApplicationController
   def index
     @q = Order.ransack(params[:q])
     @orders = @q.result.includes(:worker, services: :category)
-    # @export_params = export_params
   end
 
   # GET /orders/1 or /orders/1.json
@@ -80,17 +79,4 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:customer_name, :worker_id, service_ids: [])
     end
-
-    # def export_params
-    #   params
-    #     .require(:q)
-    #     .permit(
-    #       :created_at_gteq,
-    #       :created_at_lteq,
-    #       :customer_name_cont,
-    #       :services_category_name_cont,
-    #       :services_name_cont,
-    #       :worker_name_cont
-    #     )
-    # end
 end
