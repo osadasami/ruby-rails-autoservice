@@ -82,3 +82,5 @@ gem "caxlsx_rails", "~> 0.6.3"
 gem "pg", "~> 1.4"
 
 gem "vanilla_nested", "~> 1.6"
+
+gem "discard", "~> 1.2"

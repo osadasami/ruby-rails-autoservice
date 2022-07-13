@@ -3,7 +3,7 @@ class ServicesController < ApplicationController
 
   # GET /services or /services.json
   def index
-    @services = Service.includes(:category)
+    @services = Service.includes(:category).kept
   end
 
   # GET /services/1 or /services/1.json
@@ -49,7 +49,7 @@ class ServicesController < ApplicationController
 
   # DELETE /services/1 or /services/1.json
   def destroy
-    @service.destroy
+    @service.discard
 
     respond_to do |format|
       format.html { redirect_to services_url, notice: "Услуга была успешно удалена." }

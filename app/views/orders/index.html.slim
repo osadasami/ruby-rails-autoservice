@@ -27,7 +27,11 @@ table
               - order.order_items.each do |order_item|
                 tr
                   td= link_to order_item.service.category.name, order_item.service.category
-                  td= link_to order_item.service.name, order_item.service
+                  td
+                    - if order_item.service.discarded?
+                      = order_item.service.name
+                    - else
+                      = link_to order_item.service.name, order_item.service
                   td= link_to order_item.worker.name, order_item.worker
         td= link_to 'Редактировать', edit_order_path(order)
         td= button_to 'Удалить', order, method: :delete
