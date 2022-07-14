@@ -4,10 +4,16 @@ h1 Рабочие
 
 = link_to "Добавить рабочего", new_worker_path
 
+= form_with url: workers_path, method: :get do |f|
+  = f.text_field :filter_by_name, value: params[:filter_by_name]
+  = f.submit 'Поиск'
+  = link_to 'Сбросить фильтр', workers_path
 table
   thead
-    th Имя
-    th Действие
+    th
+      div= link_order 'Имя', :workers_path, :order_by_name
+    th
+      div Действие
   tbody
     - @workers.each do |worker|
       tr

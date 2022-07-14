@@ -1,16 +1,18 @@
 wb = xlsx_package.workbook
 
 wb.add_worksheet(name: "Orders #{Time.now.strftime('%Y-%m-%d')}") do |sheet|
-  sheet.add_row ['id', 'Дата', 'Заказчик', 'Исполнитель', 'Категория', 'Услуги']
+  sheet.add_row ['id', 'Дата', 'Заказчик', 'Категория', 'Услуги', 'Исполнители']
 
   @orders.each do |order|
-    sheet.add_row([
-        order.id,
-        order.created_at.strftime('%Y-%m-%d'),
-        order.customer_name,
-        order.worker.name,
-        order.services.map { |service| service.category.name }.join(', '),
-        order.services.map { |service| service.name }.join(', '),
-    ])
+    order.order_items.each do |order_item|
+      sheet.add_row([
+          order.id,
+          order.created_at.strftime('%Y-%m-%d'),
+          order.customer_name,
+          order_item.service.category.name,
+          order_item.service.name,
+          order_item.worker.name,
+      ])
+    end
   end
 end

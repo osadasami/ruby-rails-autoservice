@@ -4,11 +4,20 @@ h1 Услуги
 
 div= link_to "Добавить услугу", new_service_path
 
+= form_with url: services_path, method: :get do |f|
+  = f.text_field :filter_by_name, value: params[:filter_by_name], placeholder: 'Название'
+  = f.text_field :filter_by_category, value: params[:filter_by_category], placeholder: 'Категория'
+  = f.submit 'Поиск'
+  = link_to 'Сбросить фильтр', services_path
+
 table
   thead
-    th Название
-    th Категория
-    th Действие
+      th
+        div= link_order 'Название', :services_path, :order_by_name
+      th
+        div= link_order 'Категория', :services_path, :order_by_category
+      th
+        div Действие
   tbody
     - @services.each do |service|
       tr

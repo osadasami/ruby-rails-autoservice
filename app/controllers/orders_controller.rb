@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.includes(order_items: [:worker, {service: :category}])
+    set_orders
   end
 
   # GET /orders/1 or /orders/1.json
@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
   end
 
   def export
-    @orders = Order.includes(:worker, services: :category)
+    set_orders
 
     respond_to do |format|
       format.xlsx {
@@ -72,6 +72,23 @@ class OrdersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.includes(order_items: [{service: :category}, :worker]).find(params[:id])
+    end
+
+    def set_orders
+      @orders = Order.includes(order_items: [:worker, {service: :category}])
+
+      @orders = @orders.order_by_date(params[:order_by_date]) if params[:order_by_date].present?
+      @orders = @orders.order_by_customer_name(params[:order_by_customer_name]) if params[:order_by_customer_name].present?
+      @orders = @orders.order_by_category(params[:order_by_category]) if params[:order_by_category].present?
+      @orders = @orders.order_by_service(params[:order_by_service]) if params[:order_by_service].present?
+      @orders = @orders.order_by_worker(params[:order_by_worker]) if params[:order_by_worker].present?
+
+      @orders = @orders.filter_by_date_from(params[:filter_by_date_from]) if params[:filter_by_date_from].present?
+      @orders = @orders.filter_by_date_to(params[:filter_by_date_to]) if params[:filter_by_date_to].present?
+      @orders = @orders.filter_by_customer_name(params[:filter_by_customer_name]) if params[:filter_by_customer_name].present?
+      @orders = @orders.filter_by_category(params[:filter_by_category]) if params[:filter_by_category].present?
+      @orders = @orders.filter_by_service(params[:filter_by_service]) if params[:filter_by_service].present?
+      @orders = @orders.filter_by_worker(params[:filter_by_worker]) if params[:filter_by_worker].present?
     end
 
     # Only allow a list of trusted parameters through.

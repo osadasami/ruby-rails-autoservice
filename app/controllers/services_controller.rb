@@ -4,6 +4,10 @@ class ServicesController < ApplicationController
   # GET /services or /services.json
   def index
     @services = Service.includes(:category).kept
+    @services = @services.filter_by_name(params[:filter_by_name]) if params[:filter_by_name].present?
+    @services = @services.filter_by_category(params[:filter_by_category]) if params[:filter_by_category].present?
+    @services = @services.order_by_name(params[:order_by_name]) if params[:order_by_name].present?
+    @services = @services.order_by_category(params[:order_by_category]) if params[:order_by_category].present?
   end
 
   # GET /services/1 or /services/1.json

@@ -1,4 +1,4 @@
-data = {
+category_service = {
   'Техническое обслуживание': [
     'Замена моторного масла',
     'Техническое обслуживание "ТО Стандарт"',
@@ -27,7 +27,7 @@ data = {
   Worker.create(name: item)
 end
 
-data.each do |category, services|
+category_service.each do |category, services|
   new_category = Category.create(name: category)
 
   services.each do |service|
@@ -51,7 +51,17 @@ services = Service.all.shuffle
   Order.create(
     created_at: Time.at(rand * Time.now.to_i),
     customer_name: customer_names.sample,
-    worker: workers.sample,
-    services: services.sample(rand(1..3))
   )
+end
+
+orders = Order.all
+
+orders.each do |order|
+  1.upto(rand(1..3)).each do |_|
+    order_item = OrderItem.create(
+      worker: workers.sample,
+      service: services.sample
+    )
+    order.order_items.push(order_item)
+  end
 end

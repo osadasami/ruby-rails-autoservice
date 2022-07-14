@@ -4,6 +4,8 @@ class CategoriesController < ApplicationController
   # GET /categories or /categories.json
   def index
     @categories = Category.kept
+    @categories = @categories.order_by_name(params[:order_by_name]) if params[:order_by_name].present?
+    @categories = @categories.filter_by_name(params[:filter_by_name]) if params[:filter_by_name].present?
   end
 
   # GET /categories/1 or /categories/1.json

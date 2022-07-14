@@ -4,6 +4,8 @@ class WorkersController < ApplicationController
   # GET /workers or /workers.json
   def index
     @workers = Worker.kept
+    @workers = @workers.order_by_name(params[:order_by_name]) if params[:order_by_name].present?
+    @workers = @workers.filter_by_name(params[:filter_by_name]) if params[:filter_by_name].present?
   end
 
   # GET /workers/1 or /workers/1.json

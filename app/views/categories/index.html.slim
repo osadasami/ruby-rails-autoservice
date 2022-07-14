@@ -4,10 +4,17 @@ h1 Категории
 
 = link_to "Добавить категорию", new_category_path
 
+= form_with url: categories_path, method: :get do |f|
+  = f.text_field :filter_by_name, value: params[:filter_by_name]
+  = f.submit 'Поиск'
+  = link_to 'Сбросить фильтр', categories_path
+
 table
   thead
-    th Название
-    th Действие
+    th
+      div= link_order 'Название', :categories_path, :order_by_name
+    th
+      div Действие
   tbody
     - @categories.each do |category|
       tr
