@@ -7,56 +7,60 @@ h1 Заказы
 = button_to 'Экспортировать в Excel', export_orders_path, method: :get, params: params.permit!, form: {data: {turbo: false}}
 
 = form_with url: orders_path, method: :get do |f|
-  table
-    thead
-      th
-        div= link_order 'Дата', :orders_path, :order_by_date
-        div
-          span От
-          = f.text_field :filter_by_date_from, type: :date, value: params[:filter_by_date_from]
-        div
-          span До
-          = f.text_field :filter_by_date_to, type: :date, value: params[:filter_by_date_to]
-      th
-        div= link_order 'Заказчик', :orders_path, :order_by_customer_name
-        = f.text_field :filter_by_customer_name, value: params[:filter_by_customer_name]
-      th
-        div= link_order 'Категория', :orders_path, :order_by_category
-        = f.text_field :filter_by_category, value: params[:filter_by_category]
-      th
-        div= link_order 'Услуга', :orders_path, :order_by_service
-        = f.text_field :filter_by_service, value: params[:filter_by_service]
-      th
-        div= link_order 'Исполнитель', :orders_path, :order_by_worker
-        = f.text_field :filter_by_worker, value: params[:filter_by_worker]
-      th
-        div Действия
-        = f.submit 'Поиск'
-        = link_to 'Сбросить фильтр', orders_path
-    tbody
-      - @orders.each do |order|
-        tr
-          td= link_to l(order.created_at), order
-          td= order.customer_name
-          td
-            ul
-              - order.order_items.each do |order_item|
+  div
+    span От
+    = f.text_field :filter_by_date_from, type: :date, value: params[:filter_by_date_from]
+  div
+    span До
+    = f.text_field :filter_by_date_to, type: :date, value: params[:filter_by_date_to]
+  = f.text_field :filter_by_customer_name, value: params[:filter_by_customer_name], placeholder: 'Имя покупателя'
+  = f.text_field :filter_by_category, value: params[:filter_by_category], placeholder: 'Название категории'
+  = f.text_field :filter_by_service, value: params[:filter_by_service], placeholder: 'Название услуги'
+  = f.text_field :filter_by_worker, value: params[:filter_by_worker], placeholder: 'Имя исполнителя'
+  = f.submit 'Поиск'
+  = link_to 'Сбросить фильтр', orders_path
+
+table
+  thead
+    th
+      div= link_order 'Дата', :orders_path, :order_by_date
+    th
+      div= link_order 'Заказчик', :orders_path, :order_by_customer_name
+    th
+      div= link_order 'Категория', :orders_path, :order_by_category
+    th
+      div= link_order 'Услуга', :orders_path, :order_by_service
+    th
+      div= link_order 'Исполнитель', :orders_path, :order_by_worker
+    th
+      div Действия
+  tbody
+    - @orders.each do |order|
+      tr
+        td= link_to l(order.created_at), order
+        td= order.customer_name
+        td
+          ul
+            - order.order_items.each do |order_item|
+              - if order_item.service.category.discarded?
+                li= order_item.service.category.name
+              - else
                 li= link_to order_item.service.category.name, order_item.service.category
-          td
-            ul
-              - order.order_items.each do |order_item|
-                - if order_item.service.discarded?
-                  li= order_item.service.name
-                - else
-                  li= link_to order_item.service.name, order_item.service
-          td
-            ul
-              - order.order_items.each do |order_item|
-                - if order_item.worker.discarded?
-                  li= order_item.worker.name
-                - else
-                  li= link_to order_item.worker.name, order_item.worker
-          td
-            = link_to 'Редактировать', edit_order_path(order)
-            = button_to 'Удалить', order, method: :delete
+        td
+          ul
+            - order.order_items.each do |order_item|
+              - if order_item.service.discarded?
+                li= order_item.service.name
+              - else
+                li= link_to order_item.service.name, order_item.service
+        td
+          ul
+            - order.order_items.each do |order_item|
+              - if order_item.worker.discarded?
+                li= order_item.worker.name
+              - else
+                li= link_to order_item.worker.name, order_item.worker
+        td
+          = link_to 'Редактировать', edit_order_path(order)
+          = button_to 'Удалить', order, method: :delete
 

@@ -1,4 +1,4 @@
 div
-	= form.collection_select :service_id, Service.order(:name), :id, :name
-	= form.collection_select :worker_id, Worker.order(:name), :id, :name
+	= form.collection_select :service_id, Service.kept.order(:name), :id, :name
+	= form.collection_select :worker_id, Worker.kept.order(:name), :id, :name
 	= link_to_remove_nested(form)
