@@ -19,5 +19,6 @@ module RubyRailsAutoservice
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.secret_key_base = '8da5fbf82954b33369fc1fc1e5bd40c238927c167e4a3553daab98c13b5390f24dc3e05dfee18398045d3c690f5f03776d1f06ff2964d33113023a03c8d7a71b'
   end
 end
