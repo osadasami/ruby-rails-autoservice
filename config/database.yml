@@ -81,4 +81,7 @@ test:
 #
 production:
   <<: *default
+  database: railswayapp_autoservice_production
+  username: railswayapp_autoservice
+  password: <%= ENV['RAILWAYAPP_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
